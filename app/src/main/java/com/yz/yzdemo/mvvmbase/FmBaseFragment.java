@@ -1,11 +1,14 @@
-package com.yz.yzdemo.mvpbase;
+package com.yz.yzdemo.mvvmbase;
+
+import android.databinding.ViewDataBinding;
+
 
 /**
  * 残梦
  * Created by dell on 2018/3/8.
  */
 
-public abstract class FmBaseFragment<P> extends BaseFragment<P> {
+public abstract class FmBaseFragment<mBinding extends ViewDataBinding, mViewModel extends BaseViewModel> extends BaseFragment<mBinding,mViewModel> {
 
     //fragment
     // 首次初始化

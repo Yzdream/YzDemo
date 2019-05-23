@@ -1,5 +1,6 @@
-package com.yz.yzdemo.mvpbase;
+package com.yz.yzdemo.mvvmbase;
 
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,14 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import butterknife.ButterKnife;
 
 /**
  * 残梦
  * Created by dell on 2018/3/8.
  */
 
-public abstract class VpBaseFragment<P> extends BaseFragment<P> {
+public abstract class VpBaseFragment<mBinding extends ViewDataBinding, mViewModel extends BaseViewModel> extends BaseFragment<mBinding,mViewModel> {
 
     protected boolean isVisibleToUser; //页面是否可见
     protected boolean isDataInitiated; //数据是否加载
@@ -26,7 +26,6 @@ public abstract class VpBaseFragment<P> extends BaseFragment<P> {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-//        mRootUnBinder = ButterKnife.bind(this, mRoot); 如果viewPage适配器用了FragmentStatePagerAdapter就要每次重新绑定
         return mRoot;
     }
 

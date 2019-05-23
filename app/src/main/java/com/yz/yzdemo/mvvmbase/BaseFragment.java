@@ -25,11 +25,10 @@ import com.yz.utils.ToastHelper;
 
 public abstract class BaseFragment<mBinding extends ViewDataBinding, mViewModel extends BaseViewModel> extends Fragment {
 
-    private View mRoot;
+    protected View mRoot;
     // 标示是否第一次初始化界面
     private boolean mIsFirstInitView = true;
-    private boolean isViewInitiated; //控件是否初始化完成
-    private boolean isDataInitiated; //数据是否加载
+    protected boolean isViewInitiated; //控件是否初始化完成
 
     protected mBinding mBinding;
     protected mViewModel mViewModel;
@@ -83,24 +82,8 @@ public abstract class BaseFragment<mBinding extends ViewDataBinding, mViewModel 
             onFirstInit();
         }
         isViewInitiated = true;
-        prepareFetchData(false);
-
         // 当View创建完成后初始化数据
         initData();
-    }
-
-    //先于oncreatview执行的方法
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        prepareFetchData(false);
-    }
-
-    protected void prepareFetchData(boolean forceUpdate) {
-        if (getUserVisibleHint() && isViewInitiated && (!isDataInitiated || forceUpdate)) {
-            loadData();
-            isDataInitiated = true;
-        }
     }
 
     protected abstract Class<mViewModel> getViewModelClass();
@@ -119,11 +102,6 @@ public abstract class BaseFragment<mBinding extends ViewDataBinding, mViewModel 
     }
 
     protected void initData() {
-
-    }
-
-    //viewpage懒加载数据
-    public void loadData() {
 
     }
 
@@ -152,16 +130,4 @@ public abstract class BaseFragment<mBinding extends ViewDataBinding, mViewModel 
         }
     }
 
-    public static <T extends Fragment> T getInstance(Class clazz) {
-        T mFragment = null;
-        try {
-            mFragment = (T) clazz.newInstance();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (java.lang.InstantiationException e) {
-            e.printStackTrace();
-        }
-
-        return mFragment;
-    }
 }
