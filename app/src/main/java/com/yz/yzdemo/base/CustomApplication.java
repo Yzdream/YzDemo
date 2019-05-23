@@ -1,4 +1,4 @@
-package com.yz.yzdemo.mvvmbase;
+package com.yz.yzdemo.base;
 
 import android.app.Activity;
 import android.app.ActivityManager;

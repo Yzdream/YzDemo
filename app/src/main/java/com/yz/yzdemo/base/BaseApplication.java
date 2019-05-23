@@ -1,22 +1,20 @@
-package com.yz.yzdemo.mvpbase;
+package com.yz.yzdemo.base;
 
 
 import android.app.Activity;
-import android.content.Context;
+import android.app.Application;
 import android.os.Bundle;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BaseApplication extends android.app.Application {
+public class BaseApplication extends Application {
 
-    private static BaseApplication instance;
     private static List<Activity> activities = new ArrayList<>();
 
     @Override
     public void onCreate() {
         super.onCreate();
-        instance = this;
 
         //记录每个创建的activity
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
@@ -62,8 +60,6 @@ public class BaseApplication extends android.app.Application {
         for (Activity activity : activities) {
             activity.finish();
         }
-
-        showAccountView(this);
     }
 
 
@@ -80,7 +76,6 @@ public class BaseApplication extends android.app.Application {
         finishSingleActivity(tempActivity);
     }
 
-
     /**
      * 结束指定的Activity
      */
@@ -94,18 +89,5 @@ public class BaseApplication extends android.app.Application {
         }
     }
 
-
-    protected void showAccountView(Context context) {
-
-    }
-
-    /**
-     * 外部获取单例
-     *
-     * @return BaseApplication
-     */
-    public static BaseApplication getInstance() {
-        return instance;
-    }
 
 }
