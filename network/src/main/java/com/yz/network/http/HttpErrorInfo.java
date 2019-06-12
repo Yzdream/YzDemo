@@ -69,8 +69,11 @@ public class HttpErrorInfo {
             }
         } else if (e instanceof ApiExecption) {
             ApiExecption execption = (ApiExecption) e;
-            if (LOGIN.equals(execption.getErrorCode())) callBack.onLogin(execption.getMessage());
-            else callBack.showError(execption.getMessage());
+            if (LOGIN.equals(execption.getErrorCode())) {
+                callBack.onLogin(execption.getMessage());
+            } else {
+                callBack.showError(execption.getMessage());
+            }
         } else if (e instanceof ConnectException) callBack.showError("连接失败");
         else if (e instanceof JsonParseException || e instanceof JSONException) {
             callBack.showError("解析失败");

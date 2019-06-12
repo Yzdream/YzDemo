@@ -1,17 +1,5 @@
 package com.yz.network.http;
 
-import com.google.gson.JsonParseException;
-
-import org.json.JSONException;
-
-import java.net.ConnectException;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
-import java.util.concurrent.TimeoutException;
-
-import javax.net.ssl.SSLHandshakeException;
-
-import retrofit2.HttpException;
 import rx.Observer;
 
 /**

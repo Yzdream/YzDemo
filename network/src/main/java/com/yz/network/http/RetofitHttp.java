@@ -48,15 +48,21 @@ public class RetofitHttp {
 
     private LoggingInterceptor loggingInterceptor;
 
+    private static RetrofitService retrofitService;
+
     private OkHttpClient client = new OkHttpClient();
 
     private RetofitHttp(boolean isLongTime) {
-        retrofit = new Retrofit.Builder().baseUrl("").addCallAdapterFactory(RxJavaCallAdapterFactory.create()) // 使用RxJava作为回调适配器
+        retrofit = new Retrofit.Builder()
+                .baseUrl(HttpMethods.BASE_URL)
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create()) // 使用RxJava作为回调适配器
                 .addConverterFactory(ResponseConvertFactory.create()) // 使用Gson作为数据转换器
-                .client(getClient(isLongTime)).build();
+                .client(getClient(isLongTime))
+                .build();
+        retrofitService = retrofit.create(RetrofitService.class);
     }
 
-    public static RetofitHttp getInstance() {
+    public static RetrofitService getInstance() {
         if (retofitHttp == null) {
             synchronized (RetofitHttp.class) {
                 if (retofitHttp == null) {
@@ -65,10 +71,10 @@ public class RetofitHttp {
                 }
             }
         }
-        return retofitHttp;
+        return retrofitService;
     }
 
-    public static RetofitHttp getLongTimeInstance() {
+    public static RetrofitService getLongTimeInstance() {
         if (longTimeRetofitHttp == null) {
             synchronized (RetofitHttp.class) {
                 if (longTimeRetofitHttp == null) {
@@ -77,7 +83,7 @@ public class RetofitHttp {
                 }
             }
         }
-        return retofitHttp;
+        return retrofitService;
     }
 
     public Retrofit getRetrofit() {
