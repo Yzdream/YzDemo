@@ -42,9 +42,11 @@ public class FilteredFactory {
         //这里对Observable,进行一般的通用设置.不用每次用Observable都去设置线程以及重连设置
         @Override
         public Observable<T> call(Observable<BaseRespond<T>> observable) {
-            Observable<T>  observable1 = null;
+            Observable<T> observable1 = null;
             try {
-                observable1 = observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).unsubscribeOn(Schedulers.io())/*.timeout(5, TimeUnit.SECONDS)*///重连间隔时间
+                observable1 = observable.subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .unsubscribeOn(Schedulers.io())/*.timeout(5, TimeUnit.SECONDS)*///重连间隔时间
                         .retry(3)//重连次数
                         .flatMap(new Func1<BaseRespond<T>, Observable<T>>() {
                             @Override
@@ -52,7 +54,7 @@ public class FilteredFactory {
                                 return flatResponse(tBaseResponse);
                             }
                         });
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return observable1;
@@ -70,7 +72,7 @@ public class FilteredFactory {
                 public void call(Subscriber<? super T> subscriber) {
                     if (response.isStatus()) {
                         if (!subscriber.isUnsubscribed()) {
-                            subscriber.onNext(response.getDetail() == null ? response.getList() : response.getDetail());
+                            subscriber.onNext(response.getDetail());
                         }
                     } else {
                         if (!subscriber.isUnsubscribed()) {
@@ -92,7 +94,7 @@ public class FilteredFactory {
         //这里对Observable,进行一般的通用设置.不用每次用Observable都去设置线程以及重连设置
         @Override
         public Observable<T> call(Observable<BaseRespond<T>> observable) {
-            Observable<T>  observable1 = null;
+            Observable<T> observable1 = null;
             try {
                 observable1 = observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).unsubscribeOn(Schedulers.io())/*.timeout(5, TimeUnit.SECONDS)*///重连间隔时间
                         .retry(3)//重连次数
@@ -102,7 +104,7 @@ public class FilteredFactory {
                                 return flatResponseList(tBaseResponse);
                             }
                         });
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return observable1;

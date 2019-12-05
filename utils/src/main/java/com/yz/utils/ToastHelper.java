@@ -5,7 +5,6 @@ import android.content.Context;
 import android.widget.Toast;
 
 public class ToastHelper {
-
     private static Toast mToast;
 
     @SuppressLint("StaticFieldLeak")
@@ -22,7 +21,8 @@ public class ToastHelper {
         if (mToast == null) {
             mToast = Toast.makeText(mContext, text, Toast.LENGTH_SHORT);
         } else {
-            mToast.setText(text);
+            mToast.cancel();
+            mToast = Toast.makeText(mContext, text, Toast.LENGTH_SHORT);
             mToast.setDuration(Toast.LENGTH_SHORT);
         }
         mToast.show();
@@ -33,10 +33,11 @@ public class ToastHelper {
         if (mContext == null) return;
         String text = mContext.getString(resId);
         if (mToast == null) {
-            mToast = Toast.makeText(mContext, text, Toast.LENGTH_SHORT);
+            mToast = Toast.makeText(mContext, text, Toast.LENGTH_LONG);
         } else {
-            mToast.setText(text);
-            mToast.setDuration(Toast.LENGTH_SHORT);
+            mToast.cancel();
+            mToast = Toast.makeText(mContext, text, Toast.LENGTH_LONG);
+            mToast.setDuration(Toast.LENGTH_LONG);
         }
         mToast.show();
     }
@@ -44,11 +45,11 @@ public class ToastHelper {
     @SuppressLint("ShowToast")
     public static void showShortToast(String text) {
         if (mToast == null) {
-            if (mContext == null) return;
-            mToast = Toast.makeText(mContext, text, Toast.LENGTH_LONG);
+            mToast = Toast.makeText(mContext, text, Toast.LENGTH_SHORT);
         } else {
-            mToast.setText(text);
-            mToast.setDuration(Toast.LENGTH_LONG);
+            mToast.cancel();
+            mToast = Toast.makeText(mContext, text, Toast.LENGTH_SHORT);
+            mToast.setDuration(Toast.LENGTH_SHORT);
         }
         mToast.show();
     }
@@ -56,12 +57,14 @@ public class ToastHelper {
     @SuppressLint("ShowToast")
     public static void showLongToast(String text) {
         if (mToast == null) {
-            if (mContext == null) return;
             mToast = Toast.makeText(mContext, text, Toast.LENGTH_LONG);
         } else {
-            mToast.setText(text);
+            mToast.cancel();
+            mToast = Toast.makeText(mContext, text, Toast.LENGTH_LONG);
             mToast.setDuration(Toast.LENGTH_LONG);
         }
         mToast.show();
     }
 }
+
+

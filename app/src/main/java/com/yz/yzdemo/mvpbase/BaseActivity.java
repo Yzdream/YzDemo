@@ -9,9 +9,7 @@ import android.text.TextUtils;
 import com.yz.network.http.HttpErrorCallBack;
 import com.yz.network.http.HttpErrorInfo;
 import com.yz.utils.Density;
-import com.yz.utils.EventBusUtils;
 import com.yz.utils.ToastHelper;
-import com.yz.yzdemo.R;
 
 import butterknife.ButterKnife;
 
