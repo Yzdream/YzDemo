@@ -102,7 +102,7 @@ public class BarUtils {
             else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
                 //5.0 5.1 6.0改变状态栏颜色
                 activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                activity.getWindow().setStatusBarColor(Color.argb(0,0,0,0));
+                activity.getWindow().setStatusBarColor(Color.parseColor("#33464646"));
             }
 
         }
